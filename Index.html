@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPI Bahasa Jepang Kelas 11 - Konsep Keterangan Waktu (時間)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts: Fredoka & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pixar: {
+                            blue: '#0284C7',
+                            lightBlue: '#E0F2FE',
+                            amber: '#F59E0B',
+                            softYellow: '#FEF08A',
+                            purple: '#8B5CF6',
+                            lightPurple: '#EDE9FE',
+                            pink: '#EC4899',
+                            emerald: '#10B981',
+                            bg: '#F8FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f5f9;
+            background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
+        }
+
+        /* 3D Pixar Style Cards & Buttons */
+        .pixar-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.04), inset 0 -4px 0 rgba(0, 0, 0, 0.08);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .pixar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 30px -8px rgba(0, 0, 0, 0.12), inset 0 -4px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .pixar-btn {
+            border-radius: 18px;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.15), 0 10px 15px rgba(0,0,0,0.08);
+            transition: all 0.15s ease;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .pixar-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.15), 0 4px 6px rgba(0,0,0,0.08);
+        }
+
+        /* Glassmorphism Header */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 3px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-7px) rotate(2deg); }
+        }
+
+        /* Flip card element */
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between selection:bg-sky-200">
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 glass-nav px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-sky-200 floating">
+                    ⏰
+                </div>
+                <div>
+                    <h1 class="font-fredoka text-xl md:text-2xl font-bold text-slate-800 tracking-wide leading-tight">
+                        Nihongo XI <span class="text-sky-600">時間の表現 (Keterangan Waktu)</span>
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium">Media Pembelajaran Interaktif Bahasa Jepang • SMA Kelas 11</p>
+                </div>
+            </div>
+
+            <!-- TAB NAVIGATION MENU -->
+            <nav class="flex flex-wrap justify-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+                <button onclick="switchTab('panduan')" id="tab-panduan" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 bg-white text-sky-600 shadow-sm">
+                    <i class="fa-solid fa-compass"></i> Panduan
+                </button>
+                <button onclick="switchTab('tujuan')" id="tab-tujuan" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-sky-600">
+                    <i class="fa-solid fa-bullseye"></i> Tujuan
+                </button>
+                <button onclick="switchTab('materi')" id="tab-materi" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-sky-600">
+                    <i class="fa-solid fa-book-open"></i> Materi & Builder
+                </button>
+                <button onclick="switchTab('gim')" id="tab-gim" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-sky-600">
+                    <i class="fa-solid fa-gamepad"></i> Gim (3)
+                </button>
+                <button onclick="switchTab('kuis')" id="tab-kuis" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-sky-600">
+                    <i class="fa-solid fa-pen-to-square"></i> Kuis
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- ==================== TAB 1: PANDUAN ==================== -->
+        <section id="sec-panduan" class="tab-content transition-all duration-300">
+            <div class="pixar-card p-6 md:p-10 mb-8 border-2 border-sky-100 bg-gradient-to-br from-white via-sky-50/40 to-indigo-50/30">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-8 space-y-4">
+                        <span class="px-4 py-1.5 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider">Konnichiwa! 🎌</span>
+                        <h2 class="font-fredoka text-3xl md:text-4xl font-bold text-slate-800 leading-snug">
+                            Kuasai Konsep Keterangan Waktu & Partikel 「に」 dalam Bahasa Jepang!
+                        </h2>
+                        <p class="text-slate-600 text-base leading-relaxed">
+                            Aplikasi interaktif ini membantu siswa Kelas 11 SMA memahami pembacaan <span class="font-bold text-sky-700">Jam (じ)</span>, <span class="font-bold text-sky-700">Hari (ようび)</span>, kata kerja aktivitas sehari-hari, serta aturan kuncinya: <span class="font-bold text-amber-600">Kapan harus memakai partikel に dan kapan TANPA に!</span>
+                        </p>
+                        <div class="pt-2 flex flex-wrap gap-3">
+                            <button onclick="switchTab('materi')" class="pixar-btn bg-sky-600 hover:bg-sky-500 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 text-base">
+                                Mula Belajar Materi <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="switchTab('gim')" class="pixar-btn bg-amber-500 hover:bg-amber-400 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-2 text-base">
+                                Mainkan Gim <i class="fa-solid fa-gamepad"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="md:col-span-4 flex justify-center">
+                        <div class="w-56 h-56 bg-gradient-to-tr from-sky-400 via-indigo-500 to-purple-500 rounded-3xl shadow-xl flex flex-col items-center justify-center text-6xl text-white floating">
+                            ⏱️📅
+                            <span class="text-xs font-bold mt-2 font-fredoka uppercase tracking-widest text-sky-100">Jikan Master</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="font-fredoka text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <i class="fa-solid fa-map-location-dot text-sky-500"></i> Alur Belajar Interaktif
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="pixar-card p-6 border-t-4 border-sky-500">
+                    <div class="w-12 h-12 bg-sky-100 text-sky-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-4 font-fredoka">01</div>
+                    <h4 class="font-fredoka text-lg font-bold text-slate-800 mb-2">Pelajari Kosakata Waktu</h4>
+                    <p class="text-xs text-slate-600">Dengarkan pelafalan jam (いちじ, にじ...), hari dalam seminggu, dan kata relatif seperti あした, きょう.</p>
+                </div>
+                <div class="pixar-card p-6 border-t-4 border-amber-500">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-4 font-fredoka">02</div>
+                    <h4 class="font-fredoka text-lg font-bold text-slate-800 mb-2">Aturan Partikel に</h4>
+                    <p class="text-xs text-slate-600">Pahami bedanya waktu spesifik (pakai に) dengan waktu relatif (TANPA に) melalui Sentence Builder.</p>
+                </div>
+                <div class="pixar-card p-6 border-t-4 border-purple-500">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-xl font-bold mb-4 font-fredoka">03</div>
+                    <h4 class="font-fredoka text-lg font-bold text-slate-800 mb-2">Mainkan 3 Gim Edukatif</h4>
+                    <p class="text-xs text-slate-600">Gim Time Matcher, Particle Ni-Detector, dan Susun Kalimat acak untuk mengasah insting tata bahasa!</p>
+                </div>
+                <div class="pixar-card p-6 border-t-4 border-emerald-500">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold mb-4 font-fredoka">04</div>
+                    <h4 class="font-fredoka text-lg font-bold text-slate-800 mb-2">Kuis 5 Soal PG</h4>
+                    <p class="text-xs text-slate-600">Uji kemampuanmu secara mandiri, dapatkan skor langsung beserta pembahasan detail tiap soal.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: TUJUAN PEMBELAJARAN ==================== -->
+        <section id="sec-tujuan" class="tab-content hidden transition-all duration-300">
+            <div class="pixar-card p-8 mb-8 bg-white border-2 border-slate-100">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-sky-500 text-white flex items-center justify-center text-3xl shadow-md">
+                        🎯
+                    </div>
+                    <div>
+                        <h2 class="font-fredoka text-3xl font-bold text-slate-800">Tujuan Pembelajaran (学習目標)</h2>
+                        <p class="text-sm text-slate-500">Mata Pelajaran Bahasa Jepang Kelas 11 SMA</p>
+                    </div>
+                </div>
+
+                <div class="bg-sky-50/80 border border-sky-200 rounded-2xl p-6 mb-8 text-sky-900">
+                    <h3 class="font-fredoka text-lg font-bold mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-star text-sky-500"></i> Capaian Utama:
+                    </h3>
+                    <p class="text-base font-medium leading-relaxed">
+                        "Murid dapat <span class="underline decoration-sky-400 font-bold">memahami dan menerapkan</span> pola kalimat keterangan waktu [Subjek] は [Waktu] に [Aktivitas] をします, membedakan penggunaan partikel <span class="font-bold text-sky-700">に</span> pada waktu spesifik dengan kata waktu relatif (tanpa に), serta menggunakannya dalam komunikasi harian."
+                    </p>
+                </div>
+
+                <h3 class="font-fredoka text-xl font-bold text-slate-800 mb-4">Indikator Keberhasilan Siswa:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl bg-sky-50/60 border border-sky-100 flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-sky-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Pembacaan Jam & Hari</h4>
+                            <p class="text-xs text-slate-600 mt-1">Siswa dapat menyebutkan angka jam (いちじ - じゅうにじ) dan hari dalam seminggu (げつようび - にちようび) dalam Bahasa Jepang.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-amber-50/60 border border-amber-100 flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Penguasaan Kosakata Aktivitas</h4>
+                            <p class="text-xs text-slate-600 mt-1">Siswa mengenali kata kerja aktivitas harian seperti おきます, べんきょうします, ねます, しごとします, テストがあります.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-purple-50/60 border border-purple-100 flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-purple-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Ketepatan Penggunaan Partikel に</h4>
+                            <p class="text-xs text-slate-600 mt-1">Siswa tepat memakai partikel に untuk jam/hari spesifik, dan TIDAK menyisipkan に pada kata seperti きょう, あした, こんしゅう.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">4</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Penyusunan Kalimat Utuh</h4>
+                            <p class="text-xs text-slate-600 mt-1">Siswa mampu merangkai kalimat lengkap untuk menceritakan jadwal kegiatan harian diri sendiri maupun orang lain.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: MATERI & BUILDER ==================== -->
+        <section id="sec-materi" class="tab-content hidden transition-all duration-300">
+            <!-- Subtab Selector -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
+                <button onclick="switchSubMateri('waktu')" id="subtab-waktu" class="sub-btn px-5 py-2.5 rounded-xl text-sm font-bold bg-sky-600 text-white transition">
+                    1. Kosakata Waktu (時間)
+                </button>
+                <button onclick="switchSubMateri('kerja')" id="subtab-kerja" class="sub-btn px-5 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:text-sky-600 transition">
+                    2. Kata Kerja Aktivitas
+                </button>
+                <button onclick="switchSubMateri('pola')" id="subtab-pola" class="sub-btn px-5 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:text-sky-600 transition">
+                    3. Pola Kalimat & Sentence Builder
+                </button>
+            </div>
+
+            <!-- SUBMATERI 1: KOSAKATA WAKTU -->
+            <div id="submateri-waktu" class="submateri-content space-y-8">
+                <!-- Section Jam -->
+                <div class="bg-sky-50 p-5 rounded-2xl border border-sky-200">
+                    <h3 class="font-fredoka text-xl font-bold text-sky-900 mb-1">🕗 Jam (じ - Ji) → Waktu Spesifik</h3>
+                    <p class="text-xs text-sky-700 mb-4">Klik kartu untuk mendengarkan lafal audio Bahasa Jepang asli!</p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" id="jam-grid">
+                        <!-- Dynamic by JS -->
+                    </div>
+                </div>
+
+                <!-- Section Hari & Waktu Luas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-200">
+                        <h3 class="font-fredoka text-lg font-bold text-indigo-900 mb-1">📅 Hari (ようび - Youbi)</h3>
+                        <p class="text-xs text-indigo-700 mb-4">Waktu spesifik hari dalam seminggu (Menggunakan Partikel に).</p>
+                        <div class="space-y-2.5" id="hari-list">
+                            <!-- Dynamic by JS -->
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-fredoka text-lg font-bold text-amber-900">🗓️ Waktu Relatif (TANPA Partikel に)</h3>
+                            <span class="text-[10px] font-bold bg-amber-200 text-amber-900 px-2 py-0.5 rounded-md">PENTING!</span>
+                        </div>
+                        <p class="text-xs text-amber-800 mb-4">Kata-kata di bawah ini <b>TIDAK Boleh</b> diikuti partikel に!</p>
+                        <div class="space-y-2.5" id="relatif-list">
+                            <!-- Dynamic by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBMATERI 2: KOSAKATA KERJA -->
+            <div id="submateri-kerja" class="submateri-content hidden space-y-6">
+                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-200 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-fredoka text-xl font-bold text-purple-900">⚡ Activity Verbs (動詞)</h3>
+                        <p class="text-xs text-purple-700">Aktivitas sehari-hari dalam bentuk ~masu & ~masu ga ari-masu.</p>
+                    </div>
+                    <span class="text-xs bg-purple-200 text-purple-800 font-bold px-3 py-1 rounded-full">Bentuk ~ます</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="verbs-time-grid">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+            </div>
+
+            <!-- SUBMATERI 3: POLA KALIMAT & SENTENCE BUILDER -->
+            <div id="submateri-pola" class="submateri-content hidden space-y-8">
+                <!-- Rules Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="pixar-card p-6 border-t-4 border-sky-500">
+                        <span class="text-xs font-bold text-sky-600 bg-sky-100 px-3 py-1 rounded-full uppercase">Aturan 1</span>
+                        <h4 class="font-fredoka text-xl font-bold text-slate-800 mt-3 mb-2">[Subjek] は [Waktu Spesifik] に [Aktivitas] をします。</h4>
+                        <p class="text-xs text-slate-600 mb-3">Gunakan partikel <span class="font-bold text-sky-600">に</span> jika kata waktu menunjukkan jam (じ) atau hari (ようび).</p>
+                        <div class="space-y-2">
+                            <div class="bg-sky-50 p-3 rounded-xl text-xs font-semibold text-sky-900">
+                                わたしは 7じ<span class="font-bold text-red-500 underline">に</span> おきます。<br>
+                                <span class="text-[11px] text-slate-500 font-normal">(Saya bangun jam 7.)</span>
+                            </div>
+                            <div class="bg-sky-50 p-3 rounded-xl text-xs font-semibold text-sky-900">
+                                たなかさんは 9じ<span class="font-bold text-red-500 underline">に</span> しごとします。<br>
+                                <span class="text-[11px] text-slate-500 font-normal">(Tanaka bekerja jam 9.)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pixar-card p-6 border-t-4 border-amber-500">
+                        <span class="text-xs font-bold text-amber-600 bg-amber-100 px-3 py-1 rounded-full uppercase">Aturan 2 (TANPA に)</span>
+                        <h4 class="font-fredoka text-xl font-bold text-slate-800 mt-3 mb-2">[Subjek] は [Waktu Relatif] [Aktivitas] をします。</h4>
+                        <p class="text-xs text-slate-600 mb-3">Kata seperti <span class="font-bold text-amber-700">きょう, あした, こんしゅう</span> langsung menyambung tanpa に!</p>
+                        <div class="space-y-2">
+                            <div class="bg-amber-50 p-3 rounded-xl text-xs font-semibold text-amber-900">
+                                あした パーティーがあります。<br>
+                                <span class="text-[11px] text-slate-500 font-normal">(Besok ada pesta.) ❌ Jangan pakai あした に!</span>
+                            </div>
+                            <div class="bg-amber-50 p-3 rounded-xl text-xs font-semibold text-amber-900">
+                                きょう べんきょうします。<br>
+                                <span class="text-[11px] text-slate-500 font-normal">(Hari ini saya belajar.)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE SENTENCE BUILDER -->
+                <div class="pixar-card p-6 md:p-8 border-2 border-sky-200 bg-gradient-to-br from-white via-sky-50/20 to-indigo-50/30">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-500 text-white flex items-center justify-center text-2xl shadow-md">
+                            ⚙️
+                        </div>
+                        <div>
+                            <h3 class="font-fredoka text-2xl font-bold text-slate-800">Interactive Time Sentence Builder</h3>
+                            <p class="text-xs text-slate-500">Pilih elemen kalimat dan amati apakah partikel に otomatis digunakan!</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-2">1. Subjek (は):</label>
+                            <select id="sb-subj" onchange="updateTimeSentence()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white font-semibold text-xs focus:ring-2 focus:ring-sky-400">
+                                <option value="わたしは">わたしは (Saya)</option>
+                                <option value="たなかさんは">たなかさんは (Tanaka-san)</option>
+                                <option value="やまだしは">やまだしは (Yamada-shi)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-2">2. Keterangan Waktu:</label>
+                            <select id="sb-time-val" onchange="updateTimeSentence()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white font-semibold text-xs focus:ring-2 focus:ring-sky-400">
+                                <option value="7じ;true">7じ (Jam 7 - Spesifik)</option>
+                                <option value="9じ;true">9じ (Jam 9 - Spesifik)</option>
+                                <option value="げつようび;true">げつようび (Senin - Spesifik)</option>
+                                <option value="あした;false">あした (Besok - Relatif)</option>
+                                <option value="きょう;false">きょう (Hari ini - Relatif)</option>
+                                <option value="まいしゅう;false">まいしゅう (Setiap minggu - Relatif)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-2">3. Kata Kerja Aktivitas:</label>
+                            <select id="sb-act" onchange="updateTimeSentence()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white font-semibold text-xs focus:ring-2 focus:ring-sky-400">
+                                <option value="おきます。">おきます (Bangun)</option>
+                                <option value="ねます。">ねます (Tidur)</option>
+                                <option value="しごとします。">しごとします (Bekerja)</option>
+                                <option value="にほんごを べんきょうします。">にほんごを べんきょうします (Belajar B.Jepang)</option>
+                                <option value="テストがあります。">テストがあります (Ada tes)</option>
+                                <option value="パーティーがあります。">パーティーがあります (Ada pesta)</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-end">
+                            <button onclick="speakBuilderText()" class="pixar-btn bg-sky-600 hover:bg-sky-500 text-white w-full py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-volume-high"></i> Bunyikan Kalimat
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Result Box -->
+                    <div class="bg-white p-6 rounded-2xl border-2 border-dashed border-sky-300 text-center space-y-2 shadow-inner">
+                        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider block">Hasil Kalimat Terbentuk:</span>
+                        <h4 id="sb-time-jp" class="font-fredoka text-2xl font-bold text-slate-800">わたしは 7じに おきます。</h4>
+                        <p id="sb-time-id" class="text-xs font-medium text-slate-500">"Saya bangun jam 7."</p>
+                        <div id="sb-ni-badge" class="mt-2 inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                            ✓ Menggunakan Partikel に (Waktu Spesifik)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: GIM INTERAKTIF ==================== -->
+        <section id="sec-gim" class="tab-content hidden transition-all duration-300">
+            <div class="text-center mb-8">
+                <h2 class="font-fredoka text-3xl font-bold text-slate-800">🎮 Gim Interaktif Keterangan Waktu</h2>
+                <p class="text-sm text-slate-500">Uji insting membacamu dalam 3 gim seru di bawah ini!</p>
+            </div>
+
+            <!-- GAME SELECTION CARDS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div onclick="selectGame(1)" id="gcard-1" class="pixar-card p-6 border-2 border-sky-400 cursor-pointer transition">
+                    <div class="text-4xl mb-2">⏱️</div>
+                    <span class="text-xs font-bold text-sky-600 bg-sky-100 px-2.5 py-1 rounded-full">Gim #1</span>
+                    <h3 class="font-fredoka text-lg font-bold text-slate-800 mt-2">Time Matcher</h3>
+                    <p class="text-xs text-slate-500 mt-1">Cari pasangan tulisan Bahasa Jepang jam/hari dengan artinya!</p>
+                </div>
+
+                <div onclick="selectGame(2)" id="gcard-2" class="pixar-card p-6 border-2 border-slate-200 cursor-pointer transition opacity-80">
+                    <div class="text-4xl mb-2">🎯</div>
+                    <span class="text-xs font-bold text-amber-600 bg-amber-100 px-2.5 py-1 rounded-full">Gim #2</span>
+                    <h3 class="font-fredoka text-lg font-bold text-slate-800 mt-2">Particle Ni-Detector</h3>
+                    <p class="text-xs text-slate-500 mt-1">Deteksi apakah kata waktu butuh partikel 「に」 atau 「TANPA に」!</p>
+                </div>
+
+                <div onclick="selectGame(3)" id="gcard-3" class="pixar-card p-6 border-2 border-slate-200 cursor-pointer transition opacity-80">
+                    <div class="text-4xl mb-2">🧩</div>
+                    <span class="text-xs font-bold text-purple-600 bg-purple-100 px-2.5 py-1 rounded-full">Gim #3</span>
+                    <h3 class="font-fredoka text-lg font-bold text-slate-800 mt-2">Sentence Reorder</h3>
+                    <p class="text-xs text-slate-500 mt-1">Tukar potongan kata acak hingga menjadi kalimat yang benar!</p>
+                </div>
+            </div>
+
+            <!-- GAME ARENA CONTAINER -->
+            <div class="pixar-card p-6 md:p-8 bg-white border-2 border-slate-200">
+                
+                <!-- GIM 1: TIME MATCHER -->
+                <div id="garea-1" class="game-arena">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b">
+                        <div>
+                            <h3 class="font-fredoka text-xl font-bold text-slate-800">⏱️ Time Matcher</h3>
+                            <p class="text-xs text-slate-500">Jodohkan 4 pasangan kata waktu Bahasa Jepang & artinya!</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-500 font-bold">Terbuka:</span>
+                            <div id="g1-score" class="font-fredoka text-2xl font-bold text-sky-600">0 / 4</div>
+                        </div>
+                    </div>
+
+                    <div id="g1-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                        <!-- Dynamic by JS -->
+                    </div>
+
+                    <div id="g1-msg" class="text-center font-bold text-sm text-sky-700 h-6">Buka kartu untuk mencocokkan!</div>
+                    <div class="text-center mt-4">
+                        <button onclick="startGim1()" class="pixar-btn bg-sky-600 hover:bg-sky-500 text-white px-6 py-2.5 rounded-xl font-bold text-sm">
+                            Kocok Ulang Kartu
+                        </button>
+                    </div>
+                </div>
+
+                <!-- GIM 2: PARTICLE NI DETECTOR -->
+                <div id="garea-2" class="game-arena hidden">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b">
+                        <div>
+                            <h3 class="font-fredoka text-xl font-bold text-slate-800">🎯 Particle 「に」 Detector</h3>
+                            <p class="text-xs text-slate-500">Tentukan apakah kata waktu memerlukan partikel に atau TIDAK!</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-500 font-bold">Skor:</span>
+                            <div id="g2-score" class="font-fredoka text-2xl font-bold text-amber-600">0</div>
+                        </div>
+                    </div>
+
+                    <div class="text-center py-6 max-w-lg mx-auto">
+                        <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-200 mb-6">
+                            <span class="text-xs font-bold text-amber-600 block mb-1">KATA WAKTU TAMPIL:</span>
+                            <h4 id="g2-word" class="font-fredoka text-4xl font-bold text-slate-800">7じ (Jam 7)</h4>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <button onclick="checkGim2Ans(true)" class="pixar-btn bg-emerald-500 hover:bg-emerald-400 text-white py-4 rounded-2xl font-bold text-base flex flex-col items-center gap-1">
+                                <span>Pakai 「に」</span>
+                                <span class="text-[10px] opacity-80">(Waktu Spesifik)</span>
+                            </button>
+                            <button onclick="checkGim2Ans(false)" class="pixar-btn bg-rose-500 hover:bg-rose-400 text-white py-4 rounded-2xl font-bold text-base flex flex-col items-center gap-1">
+                                <span>TANPA 「に」</span>
+                                <span class="text-[10px] opacity-80">(Waktu Relatif)</span>
+                            </button>
+                        </div>
+
+                        <div id="g2-msg" class="text-sm font-bold text-slate-700 h-8">Pilih jawabanmu sekarang!</div>
+                        <button onclick="startGim2()" class="pixar-btn bg-amber-500 hover:bg-amber-400 text-white px-6 py-2 rounded-xl font-bold text-xs">
+                            Mulai Lagi
+                        </button>
+                    </div>
+                </div>
+
+                <!-- GIM 3: SENTENCE REORDER -->
+                <div id="garea-3" class="game-arena hidden">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b">
+                        <div>
+                            <h3 class="font-fredoka text-xl font-bold text-slate-800">🧩 Sentence Reorder</h3>
+                            <p class="text-xs text-slate-500">Klik kata untuk menukar posisinya sampai sesuai pola tata bahasa!</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-500 font-bold">Langkah:</span>
+                            <div id="g3-steps" class="font-fredoka text-2xl font-bold text-purple-600">0</div>
+                        </div>
+                    </div>
+
+                    <div class="text-center py-4">
+                        <p class="text-xs font-bold text-slate-500 uppercase mb-4">Target Artinya: "Saya belajar bahasa Jepang jam 8."</p>
+
+                        <div id="g3-words-container" class="flex flex-wrap justify-center gap-3 mb-8">
+                            <!-- Words dynamic -->
+                        </div>
+
+                        <div id="g3-msg" class="text-sm font-bold text-purple-700 h-8">Klik kata untuk menukar posisi!</div>
+                        <button onclick="startGim3()" class="pixar-btn bg-purple-600 hover:bg-purple-500 text-white px-6 py-2.5 rounded-xl font-bold text-sm">
+                            Acak Kembali
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: KUIS EVALUASI ==================== -->
+        <section id="sec-kuis" class="tab-content hidden transition-all duration-300">
+            <div class="pixar-card p-6 md:p-10 bg-white border-2 border-indigo-100">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-6 border-b">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full uppercase">Evaluasi Pemahaman</span>
+                        <h2 class="font-fredoka text-3xl font-bold text-slate-800 mt-2">📝 Kuis Keterangan Waktu (5 Soal)</h2>
+                    </div>
+                    <div class="bg-indigo-50 px-6 py-3 rounded-2xl border border-indigo-200 text-right">
+                        <span class="text-xs text-indigo-600 font-bold block">Skor Kuis Anda:</span>
+                        <span id="quiz-score-display" class="font-fredoka text-3xl font-bold text-indigo-700">0 / 100</span>
+                    </div>
+                </div>
+
+                <!-- QUIZ CONTAINER -->
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Soal rendered by JS -->
+                </div>
+
+                <div class="mt-8 text-center border-t pt-6">
+                    <button onclick="resetQuiz()" class="pixar-btn bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-2xl font-bold text-base">
+                        <i class="fa-solid fa-rotate-right"></i> Reset & Ulangi Kuis
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 Media Pembelajaran Interaktif Bahasa Jepang Kelas 11 SMA (時間の表現 - Keterangan Waktu)</p>
+            <p class="mt-1 text-slate-400">Pengembang: Ira Mutamirah A,Md • SMAS Daar El Qolam 2</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // DATA KOSAKATA JAM
+        const jamData = [
+            { jp: 'いちじ', num: '1:00', id: 'Jam 1' },
+            { jp: 'にじ', num: '2:00', id: 'Jam 2' },
+            { jp: 'さんじ', num: '3:00', id: 'Jam 3' },
+            { jp: 'よじ', num: '4:00', id: 'Jam 4' },
+            { jp: 'ごじ', num: '5:00', id: 'Jam 5' },
+            { jp: 'ろくじ', num: '6:00', id: 'Jam 6' },
+            { jp: 'しちじ', num: '7:00', id: 'Jam 7' },
+            { jp: 'はちじ', num: '8:00', id: 'Jam 8' },
+            { jp: 'くじ', num: '9:00', id: 'Jam 9' },
+            { jp: 'じゅうじ', num: '10:00', id: 'Jam 10' },
+            { jp: 'じゅういちじ', num: '11:00', id: 'Jam 11' },
+            { jp: 'じゅうにじ', num: '12:00', id: 'Jam 12' }
+        ];
+
+        // DATA HARI
+        const hariData = [
+            { jp: 'げつようび', id: 'Senin', icon: '🌙' },
+            { jp: 'かようび', id: 'Selasa', icon: '🔥' },
+            { jp: 'すいようび', id: 'Rabu', icon: '💧' },
+            { jp: 'もくようび', id: 'Kamis', icon: '🌲' },
+            { jp: 'きんようび', id: 'Jumat', icon: '🪙' },
+            { jp: 'どようび', id: 'Sabtu', icon: '🪨' },
+            { jp: 'にちようび', id: 'Minggu', icon: '☀️' }
+        ];
+
+        // DATA WAKTU RELATIF (TANPA NI)
+        const relatifData = [
+            { jp: 'きょう', id: 'Hari ini', note: 'Tanpa に' },
+            { jp: 'あした', id: 'Besok', note: 'Tanpa に' },
+            { jp: 'こんしゅう', id: 'Minggu ini', note: 'Tanpa に' },
+            { jp: 'まいしゅう', id: 'Setiap minggu', note: 'Tanpa に' }
+        ];
+
+        // DATA KATA KERJA
+        const verbsData = [
+            { jp: 'おきます', romaji: 'Okimasu', id: 'Bangun', icon: '⏰' },
+            { jp: 'ねます', romaji: 'Nemasu', id: 'Tidur', icon: '🌙' },
+            { jp: 'べんきょうします', romaji: 'Benkyou shimasu', id: 'Belajar', icon: '✍️' },
+            { jp: 'しごとします', romaji: 'Shigoto shimasu', id: 'Bekerja', icon: '💼' },
+            { jp: 'テストがあります', romaji: 'Tesuto ga arimasu', id: 'Ada tes', icon: '📝' },
+            { jp: 'パーティーがあります', romaji: 'Paatii ga arimasu', id: 'Ada pesta', icon: '🎉' }
+        ];
+
+        // SPEECH SYNTHESIS FUNCTION
+        function speakJapanese(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ja-JP';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // TAB NAVIGATION SWITCHER
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-sky-600', 'shadow-sm');
+                btn.classList.add('text-slate-600');
+            });
+
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.add('bg-white', 'text-sky-600', 'shadow-sm');
+            activeBtn.classList.remove('text-slate-600');
+        }
+
+        function switchSubMateri(subId) {
+            document.querySelectorAll('.submateri-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.sub-btn').forEach(btn => {
+                btn.classList.remove('bg-sky-600', 'text-white');
+                btn.classList.add('text-slate-600');
+            });
+
+            document.getElementById(`submateri-${subId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`subtab-${subId}`);
+            activeBtn.classList.add('bg-sky-600', 'text-white');
+            activeBtn.classList.remove('text-slate-600');
+        }
+
+        // RENDER MATERI CARDS
+        function renderMateri() {
+            // Render Jam Grid
+            const jamGrid = document.getElementById('jam-grid');
+            jamGrid.innerHTML = '';
+            jamData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'pixar-card p-3 border border-sky-100 text-center cursor-pointer hover:border-sky-400';
+                card.onclick = () => speakJapanese(item.jp);
+                card.innerHTML = `
+                    <span class="text-xs font-bold text-sky-500 bg-sky-100 px-2 py-0.5 rounded-full block mb-1">${item.num}</span>
+                    <h4 class="font-fredoka text-base font-bold text-slate-800">${item.jp}</h4>
+                    <p class="text-[11px] text-slate-500">${item.id}</p>
+                `;
+                jamGrid.appendChild(card);
+            });
+
+            // Render Hari List
+            const hariList = document.getElementById('hari-list');
+            hariList.innerHTML = '';
+            hariData.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'flex items-center justify-between p-2.5 bg-white rounded-xl border border-indigo-100 cursor-pointer hover:bg-indigo-50/50';
+                el.onclick = () => speakJapanese(item.jp);
+                el.innerHTML = `
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-lg">${item.icon}</span>
+                        <div>
+                            <span class="font-bold text-sm text-slate-800">${item.jp}</span>
+                            <span class="text-xs text-slate-500 ml-2">(${item.id})</span>
+                        </div>
+                    </div>
+                    <span class="text-[11px] font-bold text-indigo-600 bg-indigo-100 px-2 py-0.5 rounded-md">+ に</span>
+                `;
+                hariList.appendChild(el);
+            });
+
+            // Render Relatif List
+            const relatifList = document.getElementById('relatif-list');
+            relatifList.innerHTML = '';
+            relatifData.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'flex items-center justify-between p-2.5 bg-white rounded-xl border border-amber-100 cursor-pointer hover:bg-amber-50/50';
+                el.onclick = () => speakJapanese(item.jp);
+                el.innerHTML = `
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-base">📅</span>
+                        <div>
+                            <span class="font-bold text-sm text-slate-800">${item.jp}</span>
+                            <span class="text-xs text-slate-500 ml-2">(${item.id})</span>
+                        </div>
+                    </div>
+                    <span class="text-[11px] font-bold text-rose-600 bg-rose-100 px-2 py-0.5 rounded-md">TANPA に</span>
+                `;
+                relatifList.appendChild(el);
+            });
+
+            // Render Verbs
+            const verbsGrid = document.getElementById('verbs-time-grid');
+            verbsGrid.innerHTML = '';
+            verbsData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'pixar-card p-5 border border-purple-100 flex items-center justify-between';
+                card.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-100 text-2xl flex items-center justify-center">${item.icon}</div>
+                        <div>
+                            <h4 class="font-fredoka text-base font-bold text-slate-800">${item.jp}</h4>
+                            <p class="text-[11px] font-semibold text-purple-600">${item.romaji}</p>
+                            <p class="text-[11px] text-slate-500">${item.id}</p>
+                        </div>
+                    </div>
+                    <button onclick="speakJapanese('${item.jp}')" class="pixar-btn bg-purple-500 hover:bg-purple-400 text-white w-9 h-9 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-volume-high text-xs"></i>
+                    </button>
+                `;
+                verbsGrid.appendChild(card);
+            });
+        }
+
+        // TIME SENTENCE BUILDER LOGIC
+        function updateTimeSentence() {
+            const subj = document.getElementById('sb-subj').value;
+            const timeRaw = document.getElementById('sb-time-val').value;
+            const [timeStr, needsNi] = timeRaw.split(';');
+            const act = document.getElementById('sb-act').value;
+
+            const isNi = needsNi === 'true';
+            const niPart = isNi ? 'に ' : ' ';
+            const fullJp = `${subj} ${timeStr}${niPart}${act}`;
+
+            document.getElementById('sb-time-jp').innerText = fullJp;
+
+            // Generate Indonesian
+            let subjId = "Saya";
+            if (subj.includes("たなか")) subjId = "Tanaka-san";
+            if (subj.includes("やまだし")) subjId = "Yamada-shi";
+
+            let actId = "bangun";
+            if (act.includes("ねます")) actId = "tidur";
+            if (act.includes("しごと")) actId = "bekerja";
+            if (act.includes("にほんご")) actId = "belajar bahasa Jepang";
+            if (act.includes("テスト")) actId = "ada tes";
+            if (act.includes("パーティー")) actId = "ada pesta";
+
+            let timeId = "jam 7";
+            if (timeStr.includes("9じ")) timeId = "jam 9";
+            if (timeStr.includes("げつようび")) timeId = "hari Senin";
+            if (timeStr.includes("あした")) timeId = "besok";
+            if (timeStr.includes("きょう")) timeId = "hari ini";
+            if (timeStr.includes("まいしゅう")) timeId = "setiap minggu";
+
+            document.getElementById('sb-time-id').innerText = `"${subjId} ${actId} pada/saat ${timeId}."`;
+
+            const badge = document.getElementById('sb-ni-badge');
+            if (isNi) {
+                badge.className = "mt-2 inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+                badge.innerText = "✓ Menggunakan Partikel に (Waktu Spesifik)";
+            } else {
+                badge.className = "mt-2 inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-300";
+                badge.innerText = "⚠️ TANPA Partikel に (Waktu Relatif)";
+            }
+        }
+
+        function speakBuilderText() {
+            speakJapanese(document.getElementById('sb-time-jp').innerText);
+        }
+
+        // ================= GIM LOGIC =================
+        function selectGame(gameId) {
+            document.querySelectorAll('.game-arena').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`garea-${gameId}`).classList.remove('hidden');
+
+            for (let i = 1; i <= 3; i++) {
+                const card = document.getElementById(`gcard-${i}`);
+                if (i === gameId) {
+                    card.classList.remove('opacity-80', 'border-slate-200');
+                    card.classList.add('border-sky-400');
+                } else {
+                    card.classList.add('opacity-80', 'border-slate-200');
+                    card.classList.remove('border-sky-400');
+                }
+            }
+
+            if (gameId === 1) startGim1();
+            if (gameId === 2) startGim2();
+            if (gameId === 3) startGim3();
+        }
+
+        // GIM 1: TIME MATCHER
+        const g1Pairs = [
+            { jp: '7じ', id: 'Jam 7' },
+            { jp: 'げつようび', id: 'Hari Senin' },
+            { jp: 'あした', id: 'Besok' },
+            { jp: 'まいしゅう', id: 'Setiap minggu' }
+        ];
+        let g1FlippedCards = [];
+        let g1MatchedCount = 0;
+
+        function startGim1() {
+            g1MatchedCount = 0;
+            g1FlippedCards = [];
+            document.getElementById('g1-score').innerText = `0 / 4`;
+            document.getElementById('g1-msg').innerText = "Buka kartu untuk mencocokkan!";
+
+            let cards = [];
+            g1Pairs.forEach((pair, idx) => {
+                cards.push({ text: pair.jp, pairId: idx });
+                cards.push({ text: pair.id, pairId: idx });
+            });
+            cards.sort(() => Math.random() - 0.5);
+
+            const grid = document.getElementById('g1-grid');
+            grid.innerHTML = '';
+            cards.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'flip-card h-24 cursor-pointer';
+                cardEl.innerHTML = `
+                    <div class="flip-card-inner w-full h-full relative" id="g1-card-${index}">
+                        <div class="flip-card-front absolute inset-0 bg-sky-500 text-white rounded-2xl flex items-center justify-center font-fredoka text-2xl shadow-md border-2 border-sky-600">
+                            ⏱️
+                        </div>
+                        <div class="flip-card-back absolute inset-0 bg-white border-2 border-sky-400 rounded-2xl flex items-center justify-center p-2 text-center font-bold text-slate-800 text-xs shadow-md">
+                            ${card.text}
+                        </div>
+                    </div>
+                `;
+                cardEl.onclick = () => flipGim1Card(index, card, cards);
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function flipGim1Card(index, cardData, allCards) {
+            const cardInner = document.getElementById(`g1-card-${index}`);
+            if (cardInner.parentElement.classList.contains('flipped') || g1FlippedCards.length === 2) return;
+
+            cardInner.parentElement.classList.add('flipped');
+            g1FlippedCards.push({ index, data: cardData, el: cardInner.parentElement });
+
+            if (g1FlippedCards.length === 2) {
+                const [c1, c2] = g1FlippedCards;
+                if (c1.data.pairId === c2.data.pairId && c1.index !== c2.index) {
+                    g1MatchedCount++;
+                    document.getElementById('g1-score').innerText = `${g1MatchedCount} / 4`;
+                    g1FlippedCards = [];
+                    if (g1MatchedCount === 4) {
+                        document.getElementById('g1-msg').innerText = "🎉 SUGOI! Semua pasangan waktu cocok!";
+                        confetti({ particleCount: 70, spread: 60 });
+                    }
+                } else {
+                    setTimeout(() => {
+                        c1.el.classList.remove('flipped');
+                        c2.el.classList.remove('flipped');
+                        g1FlippedCards = [];
+                    }, 900);
+                }
+            }
+        }
+
+        // GIM 2: PARTICLE NI DETECTOR
+        const g2Questions = [
+            { word: "7じ (Jam 7)", needsNi: true },
+            { word: "あした (Besok)", needsNi: false },
+            { word: "げつようび (Hari Senin)", needsNi: true },
+            { word: "きょう (Hari ini)", needsNi: false },
+            { word: "10じ (Jam 10)", needsNi: true },
+            { word: "こんしゅう (Minggu ini)", needsNi: false }
+        ];
+        let g2Index = 0;
+        let g2Score = 0;
+
+        function startGim2() {
+            g2Index = 0;
+            g2Score = 0;
+            document.getElementById('g2-score').innerText = g2Score;
+            renderGim2Word();
+        }
+
+        function renderGim2Word() {
+            if (g2Index >= g2Questions.length) {
+                document.getElementById('g2-msg').innerText = "🏆 Selesai! Skor Akhir Ni-Detector: " + g2Score;
+                confetti();
+                return;
+            }
+            const current = g2Questions[g2Index];
+            document.getElementById('g2-word').innerText = current.word;
+            document.getElementById('g2-msg').innerText = "Pakai partikel に atau TANPA に?";
+        }
+
+        function checkGim2Ans(userChoseNi) {
+            const current = g2Questions[g2Index];
+            if (userChoseNi === current.needsNi) {
+                g2Score += 20;
+                document.getElementById('g2-score').innerText = g2Score;
+                document.getElementById('g2-msg').innerText = "✨ Tepat sekali!";
+            } else {
+                document.getElementById('g2-msg').innerText = "❌ Kurang tepat!";
+            }
+            g2Index++;
+            setTimeout(renderGim2Word, 800);
+        }
+
+        // GIM 3: SENTENCE REORDER
+        let g3Words = [
+            { id: 3, text: "にほんごを" },
+            { id: 1, text: "わたしは" },
+            { id: 4, text: "べんきょうします。" },
+            { id: 2, text: "8じに" }
+        ];
+        let g3Steps = 0;
+
+        function startGim3() {
+            g3Steps = 0;
+            document.getElementById('g3-steps').innerText = g3Steps;
+            g3Words.sort(() => Math.random() - 0.5);
+            renderGim3();
+        }
+
+        function renderGim3() {
+            const container = document.getElementById('g3-words-container');
+            container.innerHTML = '';
+            g3Words.forEach((word, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'pixar-btn bg-purple-100 hover:bg-purple-200 text-purple-900 font-bold px-5 py-3 rounded-2xl text-sm border border-purple-300';
+                btn.innerText = `${idx+1}. ${word.text}`;
+                btn.onclick = () => swapGim3(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function swapGim3(idx) {
+            if (idx < g3Words.length - 1) {
+                let temp = g3Words[idx];
+                g3Words[idx] = g3Words[idx+1];
+                g3Words[idx+1] = temp;
+                g3Steps++;
+                document.getElementById('g3-steps').innerText = g3Steps;
+                renderGim3();
+
+                if (g3Words[0].id === 1 && g3Words[1].id === 2 && g3Words[2].id === 3 && g3Words[3].id === 4) {
+                    document.getElementById('g3-msg').innerText = "🎉 PERFECT! Kalimat tersusun rapi!";
+                    confetti({ particleCount: 80, spread: 70 });
+                }
+            }
+        }
+
+        // ================= KUIS EVALUASI LOGIC =================
+        const quizQuestions = [
+            {
+                q: "1. Kalimat yang menyatakan 'Saya bangun jam 7' dalam Bahasa Jepang yang tepat adalah...",
+                options: [
+                    "A. わたしは 7じに おきます。",
+                    "B. わたしは 7じで おきます。",
+                    "C. わたしは 7じを おきます。",
+                    "D. わたしは 7じは おきます。"
+                ],
+                answer: 0,
+                desc: "Pembahasan: Waktu spesifik jam (7じ) harus diikuti partikel に untuk menunjukkan waktu kegiatan (7じに おきます)."
+            },
+            {
+                q: "2. Manakah di bawah ini penggunaan partikel yang SALAH pada kata waktu relatif?",
+                options: [
+                    "A. げつようびに テストがあります。",
+                    "B. あしたに パーティーがあります。",
+                    "C. わたしの 6じに ねます。",
+                    "D. まいしゅう にほんごを べんきょうします。"
+                ],
+                answer: 1,
+                desc: "Pembahasan: Kata あした (besok) adalah waktu relatif sehingga TIDAK Boleh menggunakan partikel に (seharusnya: あした パーティーがあります)."
+            },
+            {
+                q: "3. Terjemahkan kalimat ini ke Bahasa Jepang: 'Tanaka bekerja jam 9.'",
+                options: [
+                    "A. たなかさんは 9じで しごとします。",
+                    "B. たなかさんは 9じに しごとします。",
+                    "C. たなかさんは 9じを しごとします。",
+                    "D. たなかさんは 9じが しごとします。"
+                ],
+                answer: 1,
+                desc: "Pembahasan: Pola kalimat standar: [Subjek] は [Jam] に [Aktivitas] をします -> たなかさんは 9じに しごとします。"
+            },
+            {
+                q: "4. Bahasa Jepang dari 'Ada tes pada hari Senin' adalah...",
+                options: [
+                    "A. げつようび パーティーがあります。",
+                    "B. げつようびに テストがあります。",
+                    "C. げつようびで テストがあります。",
+                    "D. まいしゅう テストがあります。"
+                ],
+                answer: 1,
+                desc: "Pembahasan: Hari Senin (げつようび) adalah waktu spesifik (+ に), dan tes adalah (テストがあります)."
+            },
+            {
+                q: "5. Susunlah kata acak ini: 「4じ / わたしは / あした / おきます」 menjadi kalimat 'Besok saya bangun jam 4'.",
+                options: [
+                    "A. わたしは あした 4じに おきます。",
+                    "B. わたしは あしたに 4じ おきます。",
+                    "C. わたしは 4じ あしたに おきます。",
+                    "D. あした わたしはに 4じ おきます。"
+                ],
+                answer: 0,
+                desc: "Pembahasan: 'あした' tanpa に, sedangkan jam 4 harus memakai に (4じに). Sehingga urutannya: わたしは あした 4じに おきます。"
+            }
+        ];
+
+        let userAnswers = {};
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizQuestions.forEach((item, qIdx) => {
+                const card = document.createElement('div');
+                card.className = 'p-5 rounded-2xl bg-slate-50 border border-slate-200';
+
+                let optionsHtml = '';
+                item.options.forEach((opt, oIdx) => {
+                    optionsHtml += `
+                        <label class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 hover:bg-indigo-50 cursor-pointer transition text-sm font-medium">
+                            <input type="radio" name="quiz-${qIdx}" value="${oIdx}" onchange="answerQuiz(${qIdx}, ${oIdx})" class="w-4 h-4 text-indigo-600">
+                            <span>${opt}</span>
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <p class="font-bold text-slate-800 text-sm md:text-base mb-4">${item.q}</p>
+                    <div class="space-y-2 mb-3">${optionsHtml}</div>
+                    <div id="quiz-desc-${qIdx}" class="hidden p-3 rounded-xl text-xs font-medium"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function answerQuiz(qIdx, oIdx) {
+            userAnswers[qIdx] = oIdx;
+            calculateQuizScore();
+        }
+
+        function calculateQuizScore() {
+            let correctCount = 0;
+            quizQuestions.forEach((item, qIdx) => {
+                const descBox = document.getElementById(`quiz-desc-${qIdx}`);
+                if (userAnswers[qIdx] !== undefined) {
+                    descBox.classList.remove('hidden');
+                    if (userAnswers[qIdx] === item.answer) {
+                        correctCount++;
+                        descBox.className = "p-3 rounded-xl text-xs font-medium bg-emerald-100 text-emerald-800 border border-emerald-300";
+                        descBox.innerHTML = `✨ Benar! ${item.desc}`;
+                    } else {
+                        descBox.className = "p-3 rounded-xl text-xs font-medium bg-rose-100 text-rose-800 border border-rose-300";
+                        descBox.innerHTML = `❌ Kurang tepat. ${item.desc}`;
+                    }
+                }
+            });
+
+            const finalScore = (correctCount / quizQuestions.length) * 100;
+            document.getElementById('quiz-score-display').innerText = `${finalScore} / 100`;
+
+            if (finalScore === 100) {
+                confetti({ particleCount: 120, spread: 80 });
+            }
+        }
+
+        function resetQuiz() {
+            userAnswers = {};
+            document.getElementById('quiz-score-display').innerText = '0 / 100';
+            renderQuiz();
+        }
+
+        // INITIAL LOAD
+        window.onload = function() {
+            renderMateri();
+            updateTimeSentence();
+            startGim1();
+            startGim2();
+            startGim3();
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
